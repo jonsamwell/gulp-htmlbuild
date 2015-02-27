@@ -106,7 +106,9 @@ a preprocessor you can use to wrap your buildfunction in. It extracts stylesheet
 
 a function that has the same form as a normal buildfunction, only the argument here is a stream that contains stylesheet paths. You are expected to write paths to this stream as well.
 
+### htmlbuild.presprocess.inlinescript(options)
 
+a preprocessor you can use to inline a javascript file.  It takes in an object which contains a path and an optional process function.  The process function maybe used to replace text in the inlined js.
 
 ## Extended example
 
@@ -166,6 +168,16 @@ gulp.task('build', function () {
         block.end('css/concat.css');
         
       }),
+
+      inlinescript: htmlbuild.preprocess.inlinescript({
+        cwd: '/assets',
+        config: {
+            path: '/assets/js/configuration.js,
+            process: function (contents) {
+                return contents.replace('<%= version %>', 'v1.0.0.0');
+            }
+        }
+      }),
       
       // remove blocks with this target
       remove: function (block) {
@@ -207,6 +219,9 @@ it will take following html file
   
     <!-- htmlbuild:template header -->
     <!-- endbuild -->
+
+    <!-- htmlbuild:inlinescript config -->
+    <!-- endbuild -->
   
     <!-- htmlbuild:js -->
     <script src="js/src1.js"></script>
@@ -241,6 +256,11 @@ and turn it into:
     <!--
       processed by htmlbuild (header)
     -->
+
+    <script type="text/javascript">
+        var myNamespace = window.myNamesapce = window.myNamesapce || {};
+        myNamespace.version = 'v1.0.0.0';
+    </script>
   
     <script src="js/concat.js"></script>
     
