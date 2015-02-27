@@ -106,7 +106,7 @@ a preprocessor you can use to wrap your buildfunction in. It extracts stylesheet
 
 a function that has the same form as a normal buildfunction, only the argument here is a stream that contains stylesheet paths. You are expected to write paths to this stream as well.
 
-### htmlbuild.presprocess.inlinescript(options)
+### htmlbuild.preprocess.inlinescript(options)
 
 a preprocessor you can use to inline a javascript file.  It takes in an object which contains a path and an optional process function.  The process function maybe used to replace text in the inlined js.
 
